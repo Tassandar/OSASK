@@ -9,4 +9,13 @@ OK，向着属于你的操作系统进发吧！
 ### 进度条
 
 #### DAY1
+
 使用汇编完成了 helloos.nas ,经过 asm 生成二进制文件 helloos.img,使用　QEMU　软件模拟　PC　输出　hello world 。
+
+#### DAY2
+
+加入makefile。制作启动区。
+汇编写出 helloos.nas , asm 后输出 ipl.bin/ipl.lst, 用磁盘映像管理工具 edimg.exe 生成helloos.img.
+
+
+
