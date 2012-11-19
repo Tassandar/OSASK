@@ -17,5 +17,9 @@ OK，向着属于你的操作系统进发吧！
 加入makefile。制作启动区。
 汇编写出 helloos.nas , asm 后输出 ipl.bin/ipl.lst, 用磁盘映像管理工具 edimg.exe 生成helloos.img.
 
+#### DAY3
+
+制作启动区（从软盘读取数据填充到内存的对应位置），汇编写出一个简易的操作系统（黑屏），编译后输出hanbote.sys保存到磁盘映像 haribote.img .
+
 
 
