@@ -6,7 +6,7 @@
 
 OK，向着属于你的操作系统进发吧！
 
-### 进度条：
+### 进度条
 
 #### DAY1
-
+使用汇编完成了 helloos.nas ,经过 asm 生成二进制文件 helloos.img,使用　QEMU　软件模拟　PC　输出　hello world 。
