@@ -1,6 +1,6 @@
 OBJS_BOOTPACK = bootpack.obj naskfunc.obj hankaku.obj graphic.obj dsctbl.obj \
 		int.obj fifo.obj keyboard.obj mouse.obj memory.obj sheet.obj timer.obj \
-		mtask.obj
+		mtask.obj window.obj console.obj file.obj
 
 TOOLPATH = ../z_tools/
 INCPATH  = ../z_tools/haribote/
@@ -46,15 +46,19 @@ bootpack.bim : $(OBJS_BOOTPACK) Makefile
 bootpack.hrb : bootpack.bim Makefile
 	$(BIM2HRB) bootpack.bim bootpack.hrb 0
 
+hlt.hrb : hlt.nas Makefile
+	$(NASK) hlt.nas hlt.hrb hlt.lst
+
 haribote.sys : asmhead.bin bootpack.hrb Makefile
 	copy /B asmhead.bin+bootpack.hrb haribote.sys
 
-haribote.img : ipl10.bin haribote.sys Makefile
+haribote.img : ipl10.bin haribote.sys hlt.hrb Makefile
 	$(EDIMG)   imgin:../z_tools/fdimg0at.tek \
 		wbinimg src:ipl10.bin len:512 from:0 to:0 \
 		copy from:haribote.sys to:@: \
 		copy from:ipl10.nas to:@: \
 		copy from:make.bat to:@: \
+		copy from:hlt.hrb to:@: \
 		imgout:haribote.img
 
 # ˆê”Ê‹K‘¥
@@ -94,3 +98,4 @@ clean :
 src_only :
 	$(MAKE) clean
 	-$(DEL) haribote.img
+	-$(DEL) *.hrb
