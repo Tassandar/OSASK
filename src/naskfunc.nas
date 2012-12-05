@@ -15,11 +15,13 @@
 		GLOBAL	_load_tr
 		GLOBAL	_asm_inthandler20, _asm_inthandler21
 		GLOBAL	_asm_inthandler27, _asm_inthandler2c
+		GLOBAL	_asm_inthandler0d
 		GLOBAL	_memtest_sub
 		GLOBAL	_farjmp, _farcall
-		GLOBAL	_asm_hrb_api
+		GLOBAL	_asm_hrb_api, _start_app
 		EXTERN	_inthandler20, _inthandler21
 		EXTERN	_inthandler27, _inthandler2c
+		EXTERN	_inthandler0d
 		EXTERN	_hrb_api
 
 [SECTION .text]
@@ -176,6 +178,26 @@ _asm_inthandler2c:
 		POP		ES
 		IRETD
 
+_asm_inthandler0d:
+		STI
+		PUSH	ES
+		PUSH	DS
+		PUSHAD
+		MOV		EAX,ESP
+		PUSH	EAX
+		MOV		AX,SS
+		MOV		DS,AX
+		MOV		ES,AX
+		CALL	_inthandler0d
+		CMP		EAX,0		; ここだけ違う
+		JNE		end_app		; ここだけ違う
+		POP		EAX
+		POPAD
+		POP		DS
+		POP		ES
+		ADD		ESP,4			; INT 0x0d では、これが必要
+		IRETD
+
 _memtest_sub:	; unsigned int memtest_sub(unsigned int start, unsigned int end)
 		PUSH	EDI						; （EBX, ESI, EDI も使いたいので）
 		PUSH	ESI
@@ -219,10 +241,46 @@ _farcall:		; void farcall(int eip, int cs);
 
 _asm_hrb_api:
 		STI
-		PUSHAD	; 保存のためのPUSH
-		PUSHAD	; hrb_apiに渡すためのPUSH
+		PUSH	DS
+		PUSH	ES
+		PUSHAD		; 保存のためのPUSH
+		PUSHAD		; hrb_apiにわたすためのPUSH
+		MOV		AX,SS
+		MOV		DS,AX		; OS用のセグメントをDSとESにも入れる
+		MOV		ES,AX
 		CALL	_hrb_api
+		CMP		EAX,0		; EAXが0でなければアプリ終了処理
+		JNE		end_app
 		ADD		ESP,32
 		POPAD
+		POP		ES
+		POP		DS
 		IRETD
+end_app:
+;	EAXはtss.esp0の番地
+		MOV		ESP,[EAX]
+		POPAD
+		RET					; cmd_appへ帰る
 
+_start_app:		; void start_app(int eip, int cs, int esp, int ds, int *tss_esp0);
+		PUSHAD		; 32ビットレジスタを全部保存しておく
+		MOV		EAX,[ESP+36]	; アプリ用のEIP
+		MOV		ECX,[ESP+40]	; アプリ用のCS
+		MOV		EDX,[ESP+44]	; アプリ用のESP
+		MOV		EBX,[ESP+48]	; アプリ用のDS/SS
+		MOV		EBP,[ESP+52]	; tss.esp0の番地
+		MOV		[EBP  ],ESP		; OS用のESPを保存
+		MOV		[EBP+4],SS		; OS用のSSを保存
+		MOV		ES,BX
+		MOV		DS,BX
+		MOV		FS,BX
+		MOV		GS,BX
+;	以下はRETFでアプリに行かせるためのスタック調整
+		OR		ECX,3			; アプリ用のセグメント番号に3をORする
+		OR		EBX,3			; アプリ用のセグメント番号に3をORする
+		PUSH	EBX				; アプリのSS
+		PUSH	EDX				; アプリのESP
+		PUSH	ECX				; アプリのCS
+		PUSH	EAX				; アプリのEIP
+		RETF
+;	アプリが終了してもここには来ない
