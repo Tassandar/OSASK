@@ -32,12 +32,13 @@ $(APP).bim : $(APP).obj $(APILIBPATH)apilib.lib Makefile ../app_make.txt
 $(APP).hrb : $(APP).bim Makefile ../app_make.txt
 	$(BIM2HRB) $(APP).bim $(APP).hrb $(MALLOC)
 
-haribote.img : ../haribote/ipl10.bin ../haribote/haribote.sys $(APP).hrb \
+haribote.img : ../haribote/ipl20.bin ../haribote/haribote.sys $(APP).hrb \
 		Makefile ../app_make.txt
 	$(EDIMG)   imgin:../../z_tools/fdimg0at.tek \
-		wbinimg src:../haribote/ipl10.bin len:512 from:0 to:0 \
+		wbinimg src:../haribote/ipl20.bin len:512 from:0 to:0 \
 		copy from:../haribote/haribote.sys to:@: \
 		copy from:$(APP).hrb to:@: \
+		copy from:../nihongo/nihongo.fnt to:@: \
 		imgout:haribote.img
 
 # ˆê”Ê‹K‘¥
