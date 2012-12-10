@@ -106,13 +106,15 @@ void HariMain(void)
 	fifo32_put(&keycmd, key_leds);
 
 	/* nihongo.fntの読み込み */
-	nihongo = (unsigned char *) memman_alloc_4k(memman, 16 * 256 + 32 * 94 * 47);
 	fat = (int *) memman_alloc_4k(memman, 4 * 2880);
 	file_readfat(fat, (unsigned char *) (ADR_DISKIMG + 0x000200));
+
 	finfo = file_search("nihongo.fnt", (struct FILEINFO *) (ADR_DISKIMG + 0x002600), 224);
 	if (finfo != 0) {
-		file_loadfile(finfo->clustno, finfo->size, nihongo, fat, (char *) (ADR_DISKIMG + 0x003e00));
+		i = finfo->size;
+		nihongo = file_loadfile2(finfo->clustno, &i, fat);
 	} else {
+		nihongo = (unsigned char *) memman_alloc_4k(memman, 16 * 256 + 32 * 94 * 47);
 		for (i = 0; i < 16 * 256; i++) {
 			nihongo[i] = hankaku[i]; /* フォントがなかったので半角部分をコピー */
 		}
