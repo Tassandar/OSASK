@@ -1,4 +1,5 @@
-﻿## 30天自制操作系统
+﻿## 30天自制操作系统 ------  OSASK
+
 
 这是川合秀实的[《30天自制操作系统》](http://book.douban.com/subject/11530329/)的git管理版本。你可以轻易地用git来对其进行管理，建立分支，增减功能，进而做成自己的更为复杂的操作系统。
 
@@ -219,17 +220,17 @@ alloca(对esp做减法的函数)，文件操作API,命令行API，日文的文�
 
 ### Links
 
-*[川合堂](http://www.imasy.org/~mone/kawaido/)
+[川合堂](http://www.imasy.org/~mone/kawaido/)
 
-*[kawai](http://www.imasy.org/~kawai/)
+[kawai](http://www.imasy.org/~kawai/)
 
-*[豆瓣图书链接](http://book.douban.com/subject/11530329/)
+[豆瓣图书链接](http://book.douban.com/subject/11530329/)
 
-*[OSASK计划](http://http://osask.net/)
+[OSASK计划](http://http://osask.net/)
 
-*[OSASK wiki](http://ja.wikipedia.org/wiki/OSASK)
+[OSASK wiki](http://ja.wikipedia.org/wiki/OSASK)
 
-*[source code at sourceforge](http://zh.sourceforge.jp/projects/osask/releases/?package_id=10517)
+[source code at sourceforge](http://zh.sourceforge.jp/projects/osask/releases/?package_id=10517)
 
 ### Contribute 
 
@@ -243,5 +244,7 @@ That's it . Have fun.
 ### License
 
 工具软件中使用的是 
+
 [GNU GPL协议](http://www.gnu.org/licenses/gpl-3.0.html)
+
 [GNU LGPL协议](http://www.gnu.org/licenses/lgpl-3.0.html)
