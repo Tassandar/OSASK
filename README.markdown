@@ -219,12 +219,17 @@ alloca(对esp做减法的函数)，文件操作API,命令行API，日文的文�
 
 ### Links
 
-[川合堂](http://www.imasy.org/~mone/kawaido/)
-[kawai](http://www.imasy.org/~kawai/)
-[豆瓣图书链接](http://book.douban.com/subject/11530329/)
-[OSASK计划](http://http://osask.net/)
-[OSASK wiki](http://ja.wikipedia.org/wiki/OSASK)
-[source code at sourceforge](http://zh.sourceforge.jp/projects/osask/releases/?package_id=10517)
+*[川合堂](http://www.imasy.org/~mone/kawaido/)
+
+*[kawai](http://www.imasy.org/~kawai/)
+
+*[豆瓣图书链接](http://book.douban.com/subject/11530329/)
+
+*[OSASK计划](http://http://osask.net/)
+
+*[OSASK wiki](http://ja.wikipedia.org/wiki/OSASK)
+
+*[source code at sourceforge](http://zh.sourceforge.jp/projects/osask/releases/?package_id=10517)
 
 ### Contribute 
 
