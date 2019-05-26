@@ -44,7 +44,10 @@ OK，向着属于你的操作系统进发吧！
 
 3.创建自己的分支(只需要ID的前几位就行，这里检出DAY17)
 
-		git branch mybranch 8981d
+		git branch mybranch 8981d  
+  切换到自己的分支（切换后目录下就只出现DAY17版本的内容了，方便使用）  
+
+		git checkout mybranch  
 
 4.run it
 
